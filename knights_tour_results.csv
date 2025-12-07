@@ -1,0 +1,46 @@
+ID,Timestamp,Board,Algorithm,Time,Result,Success
+1,13:20:03,8x8,Backtracking,0.0010s,64/64,Yes
+2,13:20:20,8x8,Backtracking,0.0000s,64/64,Yes
+3,13:20:20,8x8,Cultural Algorithm,4.3554s,49/64,No
+4,13:20:32,8x8,Cultural Algorithm,6.3132s,43/64,No
+5,13:20:44,8x8,Cultural Algorithm,6.7794s,46/64,No
+1,13:23:39,8x8,Backtracking,0.0000s,64/64,Yes
+2,13:23:42,8x8,Backtracking,0.0000s,64/64,Yes
+3,13:23:49,6x6,Backtracking,0.0000s,36/36,Yes
+4,13:23:53,6x6,Backtracking,0.0000s,36/36,Yes
+5,13:23:57,6x6,Backtracking,0.0000s,36/36,Yes
+6,13:24:11,6x6,Backtracking,0.0000s,36/36,Yes
+7,13:24:11,6x6,Cultural Algorithm,2.3598s,23/36,No
+1,13:29:47,5x5,Backtracking,0.0000s,25/25,Yes
+2,13:29:52,9x9,Backtracking,0.0010s,81/81,Yes
+3,13:29:57,9x9,Backtracking,0.0000s,81/81,Yes
+1,13:32:58,8x8,Backtracking,0.0000s,64/64,Yes
+1,13:34:56,8x8,Backtracking,0.0000s,64/64,Yes
+2,13:35:09,8x8,Backtracking,0.0000s,64/64,Yes
+3,13:35:17,8x8,Backtracking,0.0000s,64/64,Yes
+20,13:49:33,6x6,Backtracking,0.0000s,36/36,Yes
+21,13:49:40,8x8,Backtracking,0.0000s,64/64,Yes
+22,13:49:50,10x10,Backtracking,0.0156s,100/100,Yes
+23,13:50:03,12x12,Backtracking,0.0000s,144/144,Yes
+24,13:52:01,6x6,Backtracking,0.0000s,36/36,Yes
+25,13:52:07,6x6,Backtracking,0.0000s,36/36,Yes
+26,13:52:13,6x6,Backtracking,0.0000s,36/36,Yes
+27,13:52:20,6x6,Backtracking,0.0000s,36/36,Yes
+28,13:52:26,6x6,Backtracking,0.0000s,36/36,Yes
+29,13:52:33,6x6,Backtracking,0.0000s,36/36,Yes
+30,13:52:41,6x6,Backtracking,0.0000s,36/36,Yes
+31,13:52:47,6x6,Backtracking,0.0000s,36/36,Yes
+32,13:57:34,8x8,Backtracking,0.0000s,64/64,Yes
+33,13:57:39,10x10,Backtracking,0.0010s,100/100,Yes
+34,14:55:23,10x10,Backtracking,0.0000s,100/100,Yes
+35,14:55:55,10x10,Backtracking,0.0010s,100/100,Yes
+36,14:56:21,10x10,Cultural Algorithm,8.7018s,65/100,No
+37,14:56:36,10x10,Cultural Algorithm,9.8095s,75/100,No
+38,14:56:44,6x6,Cultural Algorithm,4.0440s,25/36,No
+39,14:56:53,8x8,Cultural Algorithm,5.6564s,39/64,No
+40,14:57:03,8x8,Cultural Algorithm,6.5591s,47/64,No
+41,14:57:18,10x10,Cultural Algorithm,9.7189s,69/100,No
+42,14:57:34,12x12,Cultural Algorithm,11.7196s,95/144,No
+43,14:57:57,8x8,Cultural Algorithm,6.5918s,47/64,No
+44,14:58:10,8x8,Cultural Algorithm,6.8903s,51/64,No
+45,15:20:43,8x8,Cultural Algorithm,5.5989s,51/64,No
