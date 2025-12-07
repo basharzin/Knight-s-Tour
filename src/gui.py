@@ -8,20 +8,27 @@ import csv
 import os
 from datetime import datetime
 
+# Import Solvers
 from src.backtracking import BacktrackingSolver
 from src.cultural import CulturalSolver
 
 class KnightTourGUI:
+    """
+    Main GUI Class for the Knight's Tour Application.
+    Handles user interaction, visualization, and recording of results.
+    """
     def __init__(self, root):
         self.root = root
         self.root.title("♟️ Knight's Tour Solver - Group 53")
         self.root.geometry("1150x800")
         
+        # Initialize History Data
         self.csv_filename = "knights_tour_results.csv"
         self.history = [] 
         self.initialize_csv() 
         self.load_history_from_csv()
         
+        # Styling Setup
         self.style = ttk.Style()
         self.style.theme_use('clam')
         
@@ -45,35 +52,34 @@ class KnightTourGUI:
         ttk.Label(self.sidebar, text="Knight's Tour", style="Header.TLabel").pack(pady=(30, 5))
         ttk.Label(self.sidebar, text="Auto-Saving & Loading 📂", style="TLabel").pack(pady=(0, 20))
 
-        # --- 1. BOARD SIZE (DROPDOWN / COMBOBOX) ---
+        # --- Board Size Input ---
         f = ttk.Frame(self.sidebar, style="Control.TFrame")
         f.pack(fill=tk.X, padx=20, pady=5)
         ttk.Label(f, text="Board Size (N):", style="TLabel").pack(anchor="w")
         
-        # هنا التعديل: قائمة محددة بالأرقام اللي انت عايزها
+        # Board Size Combobox
         self.combo_n = ttk.Combobox(f, values=[6, 8, 10, 12, 16, 20, 30], font=("Segoe UI", 12, "bold"), state="readonly")
-        self.combo_n.current(1) # يختار رقم 8 كبداية (تاني رقم في القائمة)
+        self.combo_n.current(1) # Default to 8
         self.combo_n.pack(fill=tk.X, pady=2, ipady=8)
         
-        ttk.Label(self.sidebar, text="Specific sizes only", style="Hint.TLabel").pack(anchor="w", padx=20, pady=(0, 10))
+        ttk.Label(self.sidebar, text="Select from specific sizes", style="Hint.TLabel").pack(anchor="w", padx=20, pady=(0, 10))
 
-        # Start Row
+        # --- Start Position Inputs ---
         self.create_spinbox("Start Row:", 0, 29, 0)
         self.entry_r = self.last_spinbox
         
-        # Start Col
         self.create_spinbox("Start Col:", 0, 29, 0)
         self.entry_c = self.last_spinbox
         ttk.Label(self.sidebar, text="Must be < Board Size", style="Hint.TLabel").pack(anchor="w", padx=20, pady=(0, 10))
 
-        # Algorithm Selection
+        # --- Algorithm Selection ---
         ttk.Label(self.sidebar, text="Select Strategy:", style="TLabel", font=("Segoe UI", 11, "bold")).pack(anchor="w", padx=20, pady=(20, 10))
         self.algo_var = tk.StringVar(value="Backtracking")
         self.style.configure("TRadiobutton", background=self.panel_color, foreground="white", font=("Segoe UI", 10))
         ttk.Radiobutton(self.sidebar, text="Backtracking (Exact)", variable=self.algo_var, value="Backtracking").pack(anchor="w", padx=25)
         ttk.Radiobutton(self.sidebar, text="Cultural Algorithm (AI)", variable=self.algo_var, value="Cultural").pack(anchor="w", padx=25)
 
-        # Buttons
+        # --- Action Buttons ---
         btn_frame = ttk.Frame(self.sidebar, style="Control.TFrame")
         btn_frame.pack(fill=tk.X, padx=20, pady=30)
         
@@ -89,10 +95,12 @@ class KnightTourGUI:
         self.clear_btn = tk.Button(btn_frame, text="🗑️ CLEAR HISTORY", bg="#c0392b", fg="white", font=("Segoe UI", 9, "bold"), bd=0, padx=10, pady=5, cursor="hand2", command=self.clear_history)
         self.clear_btn.pack(fill=tk.X, pady=5)
 
+        # --- Status Bar ---
         self.status_var = tk.StringVar(value=f"Loaded {len(self.history)} records.")
         self.status_bar = tk.Label(self.sidebar, textvariable=self.status_var, bg="#1a252f", fg="#f39c12", font=("Consolas", 11, "bold"), pady=15, wraplength=300)
         self.status_bar.pack(side=tk.BOTTOM, fill=tk.X)
 
+        # 2. Plot Area
         self.plot_area = ttk.Frame(root, style="TFrame")
         self.plot_area.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=15, pady=15)
 
@@ -103,6 +111,7 @@ class KnightTourGUI:
         self.ax.axis('off')
         self.canvas.draw()
 
+    # --- CSV HANDLING (LOAD & SAVE) ---
     def initialize_csv(self):
         if not os.path.exists(self.csv_filename):
             try:
@@ -133,7 +142,6 @@ class KnightTourGUI:
 
     def get_inputs(self):
         try:
-            # هنا بنقرأ من القائمة المنسدلة
             n = int(self.combo_n.get())
             r = int(self.entry_r.get())
             c = int(self.entry_c.get())
@@ -161,6 +169,7 @@ class KnightTourGUI:
         except Exception as e:
             print(f"Auto-save failed: {e}")
 
+    # --- View Full History Window ---
     def view_full_history(self):
         if not self.history:
             messagebox.showinfo("Info", "History is empty.")
@@ -213,15 +222,8 @@ class KnightTourGUI:
         self.draw_board_base(n)
         xs, ys = [], []
         
-        # ========================================================
-        # ⚡⚡⚡ هنا مكان تغيير السرعة (SPEED CONTROL) ⚡⚡⚡
-        # كل ما الرقم يصغر = السرعة تزيد
-        # 0.01 = سريع جداً (صاروخ)
-        # 0.05 = سريع متوسط
-        # 0.1  = متوسط
-        # 0.5  = بطيء جداً
-        # ========================================================
-        delay = 0.01
+        # Animation Speed (0.05 = Balanced speed)
+        delay = 0.05 
         
         color_line = '#2980b9' if algo_name == "Backtracking" else '#8e44ad'
         total_sq = n * n
@@ -243,10 +245,9 @@ class KnightTourGUI:
             self.canvas.draw()
             self.root.update()
             
-            # هنا بنستخدم السرعة اللي حددناها فوق
             time.sleep(delay)
 
-        # Markers
+        # Draw Start/End Markers
         sr, sc = path[0]
         self.ax.add_patch(patches.Rectangle((sc, n - 1 - sr), 1, 1, facecolor='#2ecc71', alpha=0.5, edgecolor='green', linewidth=3))
         self.ax.text(sc+0.5, n - 1 - sr + 0.5 - 0.35, "START", color='darkgreen', fontsize=9, fontweight='bold', ha='center')

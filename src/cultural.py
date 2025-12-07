@@ -2,13 +2,18 @@ import random
 import time
 
 class CulturalSolver:
+    """
+    Implements the Cultural Algorithm to solve the Knight's Tour problem.
+    Utilizes Population Space for exploration and Belief Space for exploitation.
+    """
+
     def __init__(self, n, pop_size=150, max_gens=2000):
         self.n = n
         self.pop_size = pop_size
         self.max_gens = max_gens
         self.moves = [(2,1), (1,2), (-1,2), (-2,1), (-2,-1), (-1,-2), (1,-2), (2,-1)]
         
-        # Belief Space
+        
         self.belief_best_genome = [] 
         self.belief_best_score = 0
         self.belief_best_path = []
@@ -33,14 +38,14 @@ class CulturalSolver:
     def run(self, start_x, start_y):
         start_time = time.time()
         
-        # Initialize Population
+        
         genome_len = self.n * self.n
         population = [[random.randint(0, 7) for _ in range(genome_len)] for _ in range(self.pop_size)]
 
         for gen in range(1, self.max_gens + 1):
             scored_population = []
             
-            # Evaluate & Update Belief Space
+            
             for genome in population:
                 path = self.genome_to_path(genome, start_x, start_y)
                 score = len(path)
@@ -52,9 +57,9 @@ class CulturalSolver:
                     self.belief_best_genome = genome[:]
             
             if self.belief_best_score == self.n * self.n:
-                break # Found solution
+                break 
             
-            # Reproduction (Elitism + Guided Mutation)
+            
             scored_population.sort(key=lambda x: x[0], reverse=True)
             top_performers = [x[1] for x in scored_population[:int(self.pop_size * 0.3)]]
             
@@ -64,7 +69,7 @@ class CulturalSolver:
                 parent = random.choice(top_performers)
                 child = parent[:]
                 
-                # Knowledge-based Mutation
+                
                 fail_idx = self.belief_best_score - 1
                 if fail_idx < len(child):
                     mutation_start = max(0, fail_idx - random.randint(0, 5))
